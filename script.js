@@ -54,7 +54,6 @@
 //         gameActive = true;
 //     });
 // });
-
 $(document).ready(function() {
     let currentPlayer = 'X'; // Player is always 'X', AI is 'O'
     let board = ['', '', '', '', '', '', '', '', ''];
@@ -94,7 +93,7 @@ $(document).ready(function() {
         }
     }
 
-    $('.cell').click(function() {
+    $('.cell').on('click touchstart', function() {
         let cellIndex = $(this).index();
 
         if (board[cellIndex] === '' && currentPlayer === 'X' && !hasWinner) {
@@ -134,24 +133,5 @@ $(document).ready(function() {
             }
             return false;
         });
-    }
-});
-// Add a touchstart event listener for mobile devices
-$('.cell').on('click touchstart', function() {
-    let cellIndex = $(this).index();
-    if (board[cellIndex] === '' && currentPlayer === 'X' && !hasWinner) {
-        $(this).text(currentPlayer);
-        board[cellIndex] = currentPlayer;
-        if (checkWinner(currentPlayer)) {
-            $('#statusArea').text('You win!');
-            hasWinner = true;
-        } else if (!board.includes('')) {
-            $('#statusArea').text('It\'s a tie!');
-            hasWinner = true;
-        } else {
-            currentPlayer = 'O';
-            $('#statusArea').text('AI\'s turn...');
-            setTimeout(aiMove, 500); // Delay AI move for better UX
-        }
     }
 });
