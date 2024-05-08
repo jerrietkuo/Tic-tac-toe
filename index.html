@@ -32,23 +32,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tic-Tac-Toe AI Game</title>
+    <title>Uni Tic-Tac-Toe</title>
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <div id="statusArea">Your turn!</div>
-    <div id="ticTacToe" class="board">
-        <div class="cell"></div>
-        <div class="cell"></div>
-        <div class="cell"></div>
-        <div class="cell"></div>
-        <div class="cell"></div>
-        <div class="cell"></div>
-        <div class="cell"></div>
-        <div class="cell"></div>
-        <div class="cell"></div>
+    <div id="modeSelection">
+        <button id="pvpMode">Player vs Player</button>
+        <button id="pveMode">Player vs AI</button>
     </div>
-    <button id="resetGame">Reset Game</button>
+    <div id="gameArea" style="display:none;">
+        <h1>Uni Tic-Tac-Toe</h1> <!-- Ensure no loose comment tags around this line -->
+        <div id="statusArea">Choose a mode to start.</div>
+        <div id="ticTacToe" class="board">
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+        </div>
+        <button id="resetGame">Reset Game</button>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="./script.js"></script>

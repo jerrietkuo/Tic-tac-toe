@@ -2,55 +2,66 @@ body, html {
     height: 100%;
     margin: 0;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     font-family: 'Comic Sans MS', 'Comic Sans', cursive;
-    background-color: #f4f4f8;
+    background-color: #fde4f1; /* Soft pink background */
 }
 
-.game {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+#modeSelection button, #resetGame {
+    background-color: #ffaddf; /* Brighter pink for buttons */
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s;
+}
+
+#modeSelection button:hover, #resetGame:hover {
+    background-color: #fc92c7; /* Darker pink on hover */
 }
 
 .board {
     display: grid;
     grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
     gap: 10px;
+    margin: 20px;
 }
 
 .cell {
-    width: 100px;
-    height: 100px;
-    background-color: #fff0f5;
+    background-color: #ffffff;
     display: flex;
-    justify-content: center;
     align-items: center;
-    font-size: 2em;
+    justify-content: center;
+    font-size: 36px;
     cursor: pointer;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s, background-color 0.2s;
 }
 
 .cell:hover {
-    background-color: #fddde6;
+    transform: scale(1.1);
+    background-color: #ffaddf;
 }
 
-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 1em;
-    cursor: pointer;
-    border-radius: 10px;
-    border: none;
-    background-color: #f4cce3;
+#statusArea {
+    margin-bottom: 20px;
+    font-size: 18px;
     color: #333;
 }
 
-button:hover {
-    background-color: #d1b3c4;
+#gameArea {
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    border-radius: 15px;
+    padding: 20px;
+    background: #fff0f9; /* Very light pink */
 }
+
 
 /* .board {
     display: grid;

@@ -56,41 +56,61 @@
 // });
 
 $(document).ready(function() {
-    let currentPlayer = 'X';  // Player is always 'X', AI is 'O'
+    let currentPlayer = 'X'; // Player is always 'X', AI is 'O'
     let board = ['', '', '', '', '', '', '', '', ''];
+    let gameMode = '';
     let hasWinner = false;
 
+    $('#pvpMode').click(function() {
+        gameMode = 'PVP';
+        $('#modeSelection').hide();
+        $('#gameArea').show();
+        $('#statusArea').text('Player X\'s turn');
+    });
+
+    $('#pveMode').click(function() {
+        gameMode = 'PVE';
+        $('#modeSelection').hide();
+        $('#gameArea').show();
+        $('#statusArea').text('Your turn!');
+    });
+
     function aiMove() {
-        // Simple AI: random move
         let availableCells = board.map((cell, index) => cell === '' ? index : null).filter(index => index !== null);
         if (availableCells.length > 0) {
             let aiCellIndex = availableCells[Math.floor(Math.random() * availableCells.length)];
             board[aiCellIndex] = 'O';
-            $(`.cell:eq(${aiCellIndex})`).text('O');
+            $(`.cell:eq(${aiCellIndex})`).text('O').delay(200);
             if (checkWinner('O')) {
                 $('#statusArea').text('AI wins!');
                 hasWinner = true;
-                return;
+            } else if (!board.includes('')) {
+                $('#statusArea').text('It\'s a tie!');
+                hasWinner = true;
+            } else {
+                currentPlayer = 'X';
+                $('#statusArea').text('Your turn!');
             }
         }
-        currentPlayer = 'X';
-        $('#statusArea').text('Your turn!');
     }
 
     $('.cell').click(function() {
         let cellIndex = $(this).index();
 
         if (board[cellIndex] === '' && currentPlayer === 'X' && !hasWinner) {
-            $(this).text('X');
-            board[cellIndex] = 'X';
-            if (checkWinner('X')) {
+            $(this).text(currentPlayer);
+            board[cellIndex] = currentPlayer;
+            if (checkWinner(currentPlayer)) {
                 $('#statusArea').text('You win!');
                 hasWinner = true;
-                return;
+            } else if (!board.includes('')) {
+                $('#statusArea').text('It\'s a tie!');
+                hasWinner = true;
+            } else {
+                currentPlayer = 'O';
+                $('#statusArea').text('AI\'s turn...');
+                setTimeout(aiMove, 500); // Delay AI move for better UX
             }
-            currentPlayer = 'O';
-            $('#statusArea').text('AI\'s turn...');
-            setTimeout(aiMove, 500); // Delay AI move for better UX
         }
     });
 
@@ -99,7 +119,7 @@ $(document).ready(function() {
         board = ['', '', '', '', '', '', '', '', ''];
         currentPlayer = 'X';
         hasWinner = false;
-        $('#statusArea').text('Your turn!');
+        $('#statusArea').text(gameMode === 'PVE' ? 'Your turn!' : 'Player X\'s turn');
     });
 
     function checkWinner(player) {
@@ -108,8 +128,11 @@ $(document).ready(function() {
             [0, 3, 6], [1, 4, 7], [2, 5, 8],
             [0, 4, 8], [2, 4, 6]
         ];
-        return winPatterns.some(pattern => {
-            return pattern.every(index => board[index] === player);
+        return winPatterns.some(function(pattern) {
+            if (pattern.every(index => board[index] === player)) {
+                return true;
+            }
+            return false;
         });
     }
 });
