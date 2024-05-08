@@ -96,7 +96,33 @@ $(document).ready(function() {
     $('.cell').on('click touchstart', function() {
         let cellIndex = $(this).index();
 
-        if (board[cellIndex] === '' && currentPlayer === 'X' && !hasWinner) {
+        if (board[cellIndex] === '' && currentPlayer === 'X' && !hasWinner && gameMode === 'PVP') {
+            $(this).text(currentPlayer);
+            board[cellIndex] = currentPlayer;
+            if (checkWinner(currentPlayer)) {
+                $('#statusArea').text('Player ' + currentPlayer + ' wins!');
+                hasWinner = true;
+            } else if (!board.includes('')) {
+                $('#statusArea').text('It\'s a tie!');
+                hasWinner = true;
+            } else {
+                currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+                $('#statusArea').text('Player ' + currentPlayer + '\'s turn');
+            }
+        } else if (board[cellIndex] === '' && currentPlayer === 'O' && !hasWinner && gameMode === 'PVP') {
+            $(this).text(currentPlayer);
+            board[cellIndex] = currentPlayer;
+            if (checkWinner(currentPlayer)) {
+                $('#statusArea').text('Player ' + currentPlayer + ' wins!');
+                hasWinner = true;
+            } else if (!board.includes('')) {
+                $('#statusArea').text('It\'s a tie!');
+                hasWinner = true;
+            } else {
+                currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+                $('#statusArea').text('Player ' + currentPlayer + '\'s turn');
+            }
+        } else if (board[cellIndex] === '' && currentPlayer === 'X' && !hasWinner && gameMode === 'PVE') {
             $(this).text(currentPlayer);
             board[cellIndex] = currentPlayer;
             if (checkWinner(currentPlayer)) {
