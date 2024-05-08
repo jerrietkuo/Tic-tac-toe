@@ -77,7 +77,7 @@ $(document).ready(function() {
     function aiMove() {
         let availableCells = board.map((cell, index) => cell === '' ? index : null).filter(index => index !== null);
         if (availableCells.length > 0) {
-            let aiCellIndex = availableCells[Math.floor(Math.random() * availableCells.length)];
+            let aiCellIndex = getBestMove();
             board[aiCellIndex] = 'O';
             $(`.cell:eq(${aiCellIndex})`).text('O').delay(200);
             if (checkWinner('O')) {
@@ -90,6 +90,63 @@ $(document).ready(function() {
                 currentPlayer = 'X';
                 $('#statusArea').text('Your turn!');
             }
+        }
+    }
+
+    function getBestMove() {
+        let bestScore = -Infinity;
+        let bestMove;
+        for (let i = 0; i < board.length; i++) {
+            if (board[i] === '') {
+                board[i] = 'O';
+                let score = minimax(board, 0, false);
+                board[i] = '';
+                if (score > bestScore) {
+                    bestScore = score;
+                    bestMove = i;
+                }
+            }
+        }
+        return bestMove;
+    }
+
+    function minimax(board, depth, isMaximizing) {
+        let scores = {
+            X: -1,
+            O: 1,
+            tie: 0
+        };
+
+        if (checkWinner('X')) {
+            return scores.X;
+        } else if (checkWinner('O')) {
+            return scores.O;
+        } else if (!board.includes('')) {
+            return scores.tie;
+        }
+
+        if (isMaximizing) {
+            let bestScore = -Infinity;
+            for (let i = 0; i < board.length; i++) {
+                if (board[i] === '') {
+                    board[i] = 'O';
+                    let score = minimax(board, depth + 1, false);
+                    board[i] = '';
+                    bestScore = Math.max(score, bestScore);
+                }
+            }
+            return bestScore;
+        } else {
+            let bestScore = Infinity;
+            for (let i = 0; i < board.length; i++) {
+                if (board[i] === '') {
+                    board[i] = 'X';
+                    let score = minimax(board, depth + 1, true);
+                    board[i] = '';
+                    bestScore = Math.min(score, bestScore);
+                }
+            }
+            return bestScore;
         }
     }
 
