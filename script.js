@@ -60,14 +60,14 @@ $(document).ready(function() {
     let gameMode = '';
     let hasWinner = false;
 
-    $('#pvpMode').click(function() {
+    $('#pvpMode').on('click touchstart', function() {
         gameMode = 'PVP';
         $('#modeSelection').hide();
         $('#gameArea').show();
         $('#statusArea').text('Player X\'s turn');
     });
 
-    $('#pveMode').click(function() {
+    $('#pveMode').on('click touchstart', function() {
         gameMode = 'PVE';
         $('#modeSelection').hide();
         $('#gameArea').show();
