@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    let currentPlayer = 'X'; // Player is always 'X', AI is 'O'
+    let currentPlayer = 'X';
     let board = ['', '', '', '', '', '', '', '', ''];
     let gameMode = '';
     let hasWinner = false;
@@ -135,7 +135,7 @@ $(document).ready(function() {
             } else {
                 currentPlayer = 'O';
                 $('#statusArea').text('AI\'s turn...');
-                setTimeout(aiMove, 500); // Delay AI move for better UX
+                setTimeout(aiMove, 500);
             }
         }
     });
